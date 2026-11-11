@@ -7,13 +7,18 @@
 <meta name="description" content="Tablero de control de Agroindustrial Moramillo SAS — palma de aceite Las Malvinas">
 <meta name="theme-color" content="#21533c">
 <meta name="apple-mobile-web-app-title" content="Moramillo">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="favicon-64.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script>
   // Al abrir desde el ícono de la pantalla de inicio (?app=1) va directo al tablero.
   var TABLERO = "https://claude.ai/artifact/Wjec9i9fUxrRzu3b23djBh";
-  if (/[?&]app=1/.test(location.search)) location.replace(TABLERO);
+  var enApp = /[?&]app=1/.test(location.search) || matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+  if (enApp) location.replace(TABLERO);
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function(){});
 </script>
 <style>
   :root{--palm:#21533c;--fruit:#c4501c;--bg:#efe5d3;--ink:#1d2420;--muted:#5d6a62}
