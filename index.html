@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="manifest.webmanifest?v=3">
 <link rel="icon" type="image/png" href="favicon-64.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script>
@@ -19,6 +19,12 @@
   var enApp = /[?&]app=1/.test(location.search) || matchMedia("(display-mode: standalone)").matches || navigator.standalone;
   if (enApp) location.replace(TABLERO);
   if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function(){});
+  var aviso = null;
+  window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); aviso = e;
+    var b = document.getElementById("instalar"); if (b) b.hidden = false; });
+  window.addEventListener("appinstalled", function(){ var b=document.getElementById("instalar"); if(b) b.hidden=true;
+    var t=document.getElementById("ok"); if(t) t.hidden=false; });
+  function instalar(){ if(aviso){ aviso.prompt(); aviso = null; } }
 </script>
 <style>
   :root{--palm:#21533c;--fruit:#c4501c;--bg:#efe5d3;--ink:#1d2420;--muted:#5d6a62}
@@ -29,6 +35,8 @@
   img.logo{width:200px;height:200px;margin:0 auto}
   h1{margin:0;color:var(--palm);font-size:34px;line-height:1.15}
   .sub{margin:0;color:var(--muted)}
+  [hidden]{display:none!important}
+  button.inst{display:block;width:100%;background:var(--fruit);color:#fff;border:none;font:inherit;font-weight:700;font-size:23px;padding:20px;border-radius:14px;cursor:pointer}
   a.btn{display:block;background:var(--palm);color:#fff;text-decoration:none;font-weight:700;font-size:23px;padding:20px;border-radius:14px}
   details{background:#fbf7ee;border:1px solid #e0d4bd;border-radius:12px;padding:12px 16px;text-align:left}
   summary{font-weight:700;color:var(--palm);cursor:pointer}
@@ -44,11 +52,13 @@
     <h1>Agroindustrial Moramillo</h1>
     <p class="sub">Palma de aceite · Las Malvinas</p>
   </div>
+  <button class="inst" id="instalar" type="button" onclick="instalar()" hidden>Instalar la app Moramillo</button>
+  <p class="tip" id="ok" hidden>Listo. Abra la app desde el ícono de Moramillo en su pantalla de inicio.</p>
   <a class="btn" href="https://claude.ai/artifact/Wjec9i9fUxrRzu3b23djBh">Abrir el tablero</a>
-  <p class="tip">Para tenerlo como app con este logo, agregue esta página a la pantalla de inicio:</p>
+  <p class="tip">Si no le aparece el botón naranja "Instalar", hágalo desde el menú:</p>
   <details open>
     <summary>Android (Chrome)</summary>
-    <ol><li>Toque el menú ⋮ arriba a la derecha.</li><li>Elija <b>Agregar a pantalla principal</b> (o <b>Instalar</b>).</li><li>Confirme con <b>Agregar</b>.</li></ol>
+    <ol><li>Toque el menú ⋮ arriba a la derecha.</li><li>Elija <b>Instalar aplicación</b>. Si solo ve "Agregar a pantalla principal", elíjalo y luego toque <b>Instalar</b>.</li></ol>
   </details>
   <details>
     <summary>iPhone (Safari)</summary>

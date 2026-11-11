@@ -2,8 +2,8 @@
   "name": "Agroindustrial Moramillo",
   "short_name": "Moramillo",
   "description": "Tablero de control del cultivo de palma Las Malvinas",
-  "start_url": "./?app=1",
-  "scope": "./",
+  "start_url": "/AGROINDUSTRIALMORAMILLO/?app=1",
+  "scope": "/AGROINDUSTRIALMORAMILLO/",
   "display": "standalone",
   "background_color": "#21533c",
   "theme_color": "#21533c",
@@ -32,6 +32,6 @@
     "standalone",
     "minimal-ui"
   ],
-  "id": "./",
+  "id": "/AGROINDUSTRIALMORAMILLO/",
   "orientation": "portrait"
 }
